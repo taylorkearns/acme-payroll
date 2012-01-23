@@ -1,4 +1,5 @@
 class Sales
+	require 'bigdecimal'
 	require 'csv'
 	require_relative 'csv_reader'
 	
@@ -9,20 +10,20 @@ class Sales
 	end
 	
 	def period_sales_total
-		total = 0.0
+		total = BigDecimal.new('0.0')
 		CSV.foreach(@csv, headers: true) do |row|
-			total += row['Sales This Period'].to_f
+			total += BigDecimal(row['Sales This Period'])
 		end	
 		total
 	end
 	
 	def salary_this_period(salary)
 		if @pay_period == 'weekly'
-			salary/52
+			salary/BigDecimal('52')
 		elsif @pay_period == 'bi-weekly'
-			salary/26
+			salary/BigDecimal('26')
 		elsif @pay_period == 'monthly'
-			salary/12
+			salary/BigDecimal('12')
 		end
 	end
 end

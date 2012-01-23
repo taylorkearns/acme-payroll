@@ -1,4 +1,6 @@
 class Employee
+	require 'bigdecimal'
+	
 	def initialize last_name, first_name
 		@last_name = last_name.capitalize
 		@first_name = first_name.capitalize
@@ -18,7 +20,7 @@ class Executive < Employee
 		@period_sales = 0
 		@position = 'executive'
 		@period_sales_total = @sales.period_sales_total
-		@commission = commission
+		@commission = BigDecimal('commission')
 		@pay_period = 'monthly'
 		@pay_type = 'direct_deposit'
 	end
@@ -66,7 +68,7 @@ class Salesperson < Employee
 		@sales = Sales.new
 		@period_sales = period_sales.to_f
 		@position = 'sales'
-		@commission = commission 
+		@commission = BigDecimal('commission') 
 		@pay_period = 'weekly'
 		@pay_type = 'check'
 	end

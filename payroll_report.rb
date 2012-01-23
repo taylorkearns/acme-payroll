@@ -1,5 +1,6 @@
 # return salary_payments, commission_payments, direct_deposit_payments, check_count
 class Payroll
+	require 'bigdecimal'
 	require_relative 'csv_reader'
 	require_relative 'employee'
 	require_relative 'sales'
@@ -25,7 +26,7 @@ class Payroll
 	end	
 	
 	def salary_payments
-		payments = 0
+		payments = BigDecimal('0')
 		paid_employees.each do |employee|
 			payments += employee.salary_this_period
 		end
@@ -33,7 +34,7 @@ class Payroll
 	end
 	
 	def commission_payments
-		payments = 0
+		payments = BigDecimal('0')
 		paid_employees.each do |employee|
 			if employee.respond_to?('commission')
 				payments += employee.commission
