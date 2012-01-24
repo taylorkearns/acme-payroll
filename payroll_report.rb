@@ -16,6 +16,7 @@ class Payroll
 		puts "::: PAYROLL REPORT :::"
 		puts "Salary Payments This Period: $#{ salary_payments }"
 		puts "Commission Payments This Period: $#{ commission_payments }"
+		puts "Direct Deposit Payments This Period: $#{ direct_deposit_payments }"
 		if @bad_data.count > 0	
 			puts "\n\n>>> BAD DATA <<<\nThe following data must be corrected in order to calculate an accurate payroll report:\n\n"
 			@bad_data.each do |data|
@@ -26,7 +27,7 @@ class Payroll
 	end	
 	
 	def salary_payments
-		payments = BigDecimal('0')
+		payments = 0
 		paid_employees.each do |employee|
 			payments += employee.salary_this_period
 		end
@@ -34,10 +35,20 @@ class Payroll
 	end
 	
 	def commission_payments
-		payments = BigDecimal('0')
+		payments = 0
 		paid_employees.each do |employee|
-			if employee.respond_to?('commission')
-				payments += employee.commission
+			if employee.respond_to?('commission_this_period')
+				payments += employee.commission_this_period
+			end
+		end
+		payments
+	end
+	
+	def direct_deposit_payments
+		payments = 0
+		paid_employees.each do |employee|
+			if employee.pay_period === 'direct_deposit'
+				payments += employee.salary_this_period + employee.commission_this_period
 			end
 		end
 		payments
