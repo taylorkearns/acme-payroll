@@ -23,7 +23,7 @@ class Sales
 		elsif @pay_period == 'bi-weekly'
 			salary.div(26)
 		elsif @pay_period == 'monthly'
-			salary.div(12)
+			salary.div(13)
 		end
 	end
 end

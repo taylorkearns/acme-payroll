@@ -6,6 +6,6 @@ class CSVReader
 	end
 	
 	def get_path
-		Dir.getwd + '/' + @csv
+		Dir.getwd + '/data/' + @csv
 	end
 end
